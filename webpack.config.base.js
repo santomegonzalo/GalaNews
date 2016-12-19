@@ -13,7 +13,7 @@ export default validate({
     loaders: [{
       test: /\.jsx?$/,
       loaders: ['babel-loader'],
-      exclude: /node_modules/
+      exclude: /node_modules/,
     }, {
       test: /\.json$/,
       loader: 'json-loader'
