@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, import/no-extraneous-dependencies */
 /**
  * Setup and run the development server for Hot-Module-Replacement
  * https://webpack.github.io/docs/hot-module-replacement-with-webpack.html
@@ -21,15 +21,15 @@ const PORT = process.env.PORT || 3000;
 const wdm = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   stats: {
-    colors: true
-  }
+    colors: true,
+  },
 });
 
 app.use(wdm);
 
 app.use(webpackHotMiddleware(compiler));
 
-const server = app.listen(PORT, 'localhost', serverError => {
+const server = app.listen(PORT, 'localhost', (serverError) => {
   if (serverError) {
     return console.error(serverError);
   }
@@ -41,6 +41,8 @@ const server = app.listen(PORT, 'localhost', serverError => {
   }
 
   console.log(`Listening at http://localhost:${PORT}`);
+
+  return null;
 });
 
 process.on('SIGTERM', () => {
