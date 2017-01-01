@@ -1,7 +1,10 @@
 // @flow
 import React, { Component } from 'react';
+import { Titlebar } from 'react-titlebar-osx';
 import styles from './Articles.css';
 import Article from './Article';
+
+import 'react-titlebar-osx/lib/css/Titlebar.css';
 
 class Articles extends Component {
   constructor() {
@@ -43,10 +46,15 @@ class Articles extends Component {
     }
 
     return (
-      <div className={styles.articlesContainer}>
-        {
-          articles.list.map((article) => <Article key={article.url} {...article} />)
-        }
+      <div>
+        <div>
+          <Titlebar draggable/>
+        </div>
+        <div className={styles.articlesContainer}>
+          {
+            articles.list.map((article) => <Article key={article.url} {...article} />)
+          }
+        </div>
       </div>
     );
   }
