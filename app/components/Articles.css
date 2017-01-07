@@ -1,9 +1,19 @@
 .articlesContainer {
   display: flex;
-  height: 100%;
+  height: calc(100% -  44px);
 	width: 100%;
   flex-direction: row;
 	flex-wrap: wrap;
   overflow: hidden;
   overflow-y: scroll;
+}
+
+.articlesLoading {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }

@@ -1,10 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import { app, BrowserWindow, Menu, shell } from 'electron';
+import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron';
 
 let menu;
 let template;
 let mainWindow = null;
+let killAppFlag = false;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
@@ -19,9 +20,32 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  if (process.platform !== 'darwin') {
+    app.quit()
+  };
 });
 
+app.on('before-quit', () => {
+    killAppFlag = true;
+});
+
+const initEvents = () => {
+  ipcMain.on('galanews-app-close', () => {
+    mainWindow.close();
+  });
+
+  ipcMain.on('galanews-app-minimize', () => {
+    mainWindow.minimize();
+  });
+
+  ipcMain.on('galanews-app-maximize', () => {
+    mainWindow.maximize();
+  });
+
+  ipcMain.on('galanews-app-fullscreen', () => {
+    mainWindow.setFullScreen(!mainWindow.isFullScreen());
+  });
+};
 
 const installExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
@@ -60,6 +84,15 @@ app.on('ready', async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  mainWindow.on('close', (e) => {
+    if (!killAppFlag) {
+      e.preventDefault();
+      mainWindow.hide();
+    }
+  });
+
+  initEvents();
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();

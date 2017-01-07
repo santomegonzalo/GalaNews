@@ -4,14 +4,22 @@
   font-family: 'Roboto', Arial;
 }
 
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #F4F4F4;
+}
+
 body {
+  margin: 0;
   position: relative;
   color: white;
   height: 100vh;
   background-color: #F4F4F4;
   font-family: 'Roboto', Arial;
   overflow-y: hidden;
-  margin: 10px;
 }
 
 h2 {
@@ -28,4 +36,9 @@ p {
 
 li {
   list-style: none;
+}
+
+div#root, div.app-container {
+  height: 100%;
+  width: 100%;
 }

@@ -30,7 +30,7 @@ export function error(err: Object) {
 export function loadArticles(page: number = 1) {
   return (dispatch: Function, getState: Function) => {
     dispatch(loading());
-    
+
     return fetch(`https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=${NEWS_KEY}`)
       .then((response) => response.json())
       .then((json) => {
