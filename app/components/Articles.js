@@ -30,18 +30,18 @@ class Articles extends Component {
   }
 
   handleScroll(e: any) {
-    var container = e.target;
-
-		if (container.scrollTop > 0 && container.scrollTop + container.clientHeight == container.scrollHeight) {
-      const { loadArticles } = this.props;
-      const newPage = this.state.page + 1;
-
-      this.setState({
-        page: newPage
-      });
-
-      loadArticles(newPage);
-		}
+    // var container = e.target;
+    //
+		// if (container.scrollTop > 0 && container.scrollTop + container.clientHeight == container.scrollHeight) {
+    //   const { loadArticles } = this.props;
+    //   const newPage = this.state.page + 1;
+    //
+    //   this.setState({
+    //     page: newPage
+    //   });
+    //
+    //   loadArticles(newPage);
+		// }
   }
 
   render() {

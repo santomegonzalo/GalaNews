@@ -1,6 +1,8 @@
 // @flow
 import { NEWS_KEY } from '../../config';
 import Immutable, { List } from 'immutable';
+import moment from 'moment';
+import db from '../db';
 
 export const ARTICLE_LOADING = 'ARTICLE_LOADING';
 export const ARTICLE_LOADED = 'ARTICLE_LOADED';
@@ -27,14 +29,50 @@ export function error(err: Object) {
   };
 }
 
+function mergeArticles(lists: Array<List>) {
+  let mergedList = new List();
+  lists.forEach((list) => {
+    mergedList = mergedList.concat(list);
+  });
+
+  mergedList = mergedList.sort((articleA, articleB) => {
+    // return new Date(articleA.get('publishedAt')) < new Date(articleB.get('publishedAt'));
+    const momentA = moment(articleA.get('publishedAt'));
+    const momentB = moment(articleB.get('publishedAt'));
+    if (momentA > momentB) {
+      return -1;
+    } else if (momentA < momentB) {
+      return 1;
+    }
+
+    return 0;
+  });
+
+  return mergedList;
+}
+
 export function loadArticles(page: number = 1) {
   return (dispatch: Function, getState: Function) => {
     dispatch(loading());
 
-    return fetch(`https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=${NEWS_KEY}`)
-      .then((response) => response.json())
-      .then((json) => {
-        const list = Immutable.fromJS(json.articles);
+    return db.getSources()
+      .then((sources) => {
+        return Promise.all(
+          sources.map(
+            (source) => fetch(`https://newsapi.org/v1/articles?source=${source.id}&sortBy=top&apiKey=${NEWS_KEY}`)
+          )
+        );
+      })
+      .then((responses) => {
+        return Promise.all(
+          responses.map(
+            (response) => response.json()
+          )
+        );
+      })
+      .then((listJSON) => {
+        const list = mergeArticles(listJSON.map(list => Immutable.fromJS(list.articles)));
+
         dispatch(loadded(list));
       })
       .catch((err) => dispatch(error(err)));

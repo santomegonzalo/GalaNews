@@ -1,7 +1,6 @@
 // @flow
 import { NEWS_KEY } from '../../config';
 import Immutable, { List } from 'immutable';
-// import { browserHistory } from 'react-router';
 import db from '../db';
 
 export const SOURCE_LOADING = 'SOURCE_LOADING';
