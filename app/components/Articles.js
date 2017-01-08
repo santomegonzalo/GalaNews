@@ -15,7 +15,6 @@ class Articles extends Component {
     super();
 
     this.state = {
-      height: 100,
       page: 1,
     };
   }
@@ -59,7 +58,7 @@ class Articles extends Component {
             <div className={styles.articlesLoading}>loading...</div>
         }
         {
-          articles.list.map((article) => <Article key={article.url} {...article} />)
+          articles.list.map((article) => <Article key={article.get('url')} {...article.toJS()} />)
         }
       </div>
     );

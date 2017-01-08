@@ -1,6 +1,6 @@
 // @flow
 import { NEWS_KEY } from '../../config';
-import _ from 'lodash';
+import Immutable, { List } from 'immutable';
 
 export const ARTICLE_LOADING = 'ARTICLE_LOADING';
 export const ARTICLE_LOADED = 'ARTICLE_LOADED';
@@ -12,7 +12,7 @@ export function loading() {
   };
 }
 
-export function loadded(articles: Array<Object>) {
+export function loadded(articles: List) {
   return {
     type: ARTICLE_LOADED,
     payload: {
@@ -34,7 +34,7 @@ export function loadArticles(page: number = 1) {
     return fetch(`https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=${NEWS_KEY}`)
       .then((response) => response.json())
       .then((json) => {
-        const list = json.articles;
+        const list = Immutable.fromJS(json.articles);
         dispatch(loadded(list));
       })
       .catch((err) => dispatch(error(err)));
