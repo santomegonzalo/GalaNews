@@ -7,12 +7,18 @@ import CounterPage from './containers/CounterPage';
 import ArticlesPage from './containers/ArticlesPage';
 import SourcesPage from './containers/SourcesPage';
 
-export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={SourcesPage} />
-    <Route path="/sources" component={SourcesPage} />
-    <Route path="/articles" component={ArticlesPage} />
-    <Route path="/home" component={HomePage} />
-    <Route path="/counter" component={CounterPage} />
-  </Route>
-);
+export class RouterDefinition {
+  init(haveSources : boolean) {
+    const routes = (
+      <Route path="/" component={App}>
+        <IndexRoute component={haveSources ? ArticlesPage : SourcesPage} />
+        <Route path="/sources" component={SourcesPage} />
+        <Route path="/articles" component={ArticlesPage} />
+        <Route path="/home" component={HomePage} />
+        <Route path="/counter" component={CounterPage} />
+      </Route>
+    );
+
+    return routes;
+  }
+}

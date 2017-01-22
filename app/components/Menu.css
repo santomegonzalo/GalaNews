@@ -1,0 +1,39 @@
+.container {
+  position: fixed;
+  display: flex;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: transparent;
+  z-index: 9999;
+}
+
+.containerMenu {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 300px;
+  background-color: rgba(0, 128, 145, 0.9);
+}
+
+.closeAction {
+  height: 120px;
+}
+
+.menuActions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.action {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #FFF;
+  text-decoration: none;
+  text-transform: uppercase;
+}

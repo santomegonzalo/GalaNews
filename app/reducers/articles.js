@@ -10,7 +10,7 @@ export default function counter(state: Object = { init: true }, action: Object) 
   switch (action.type) {
     case ARTICLE_LOADING:
       return {
-        ...state, 
+        ...state,
         loading: true,
         init: false,
       };

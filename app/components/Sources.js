@@ -8,6 +8,7 @@ import { hashHistory } from 'react-router';
 
 class Sources extends Component {
   props: {
+    changeMenuVisible: () => void,
     loadSources: () => void,
     sources: () => void,
     selectSource: () => void,
@@ -15,9 +16,12 @@ class Sources extends Component {
   };
 
   componentDidMount() {
-    const { loadSources } = this.props;
+    document.getElementById('root').classList.remove('with-background');
+
+    const { loadSources, changeMenuVisible } = this.props;
 
     loadSources();
+    changeMenuVisible();
   }
 
   handleNext() {

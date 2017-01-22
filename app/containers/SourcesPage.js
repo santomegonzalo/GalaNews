@@ -2,6 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Sources from '../components/Sources';
 import * as SourcesActions from '../actions/sources';
+import * as MenuActions from '../actions/menu';
 
 function mapStateToProps(state) {
   return {
@@ -10,7 +11,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(SourcesActions, dispatch);
+  return bindActionCreators(Object.assign({}, MenuActions, SourcesActions), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sources);

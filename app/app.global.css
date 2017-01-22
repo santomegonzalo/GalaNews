@@ -23,6 +23,11 @@ body {
   overflow-y: hidden;
 }
 
+ul {
+  padding: 0px;
+  margin: 0px;
+}
+
 h2 {
   margin: 0;
   font-size: 2.25rem;
@@ -42,4 +47,10 @@ li {
 div#root, div.app-container {
   height: 100%;
   width: 100%;
+}
+
+div#root.with-background {
+  background-image: url('./resources/background.png');
+  background-position: top center;
+  background-size: cover;
 }

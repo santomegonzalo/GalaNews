@@ -1,12 +1,15 @@
 // @flow
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import styles from './Articles.css';
 import Article from './Article';
+import Button from './utils/Button';
 
 import 'react-titlebar-osx/lib/css/Titlebar.css';
 
 class Articles extends Component {
   props: {
+    changeMenuVisible: () => void,
     loadArticles: () => void,
     articles: () => void,
   };
@@ -20,6 +23,8 @@ class Articles extends Component {
   }
 
   componentDidMount() {
+    document.getElementById('root').classList.add('with-background');
+
     const { loadArticles } = this.props;
 
     window.addEventListener('resize', () => {
@@ -44,6 +49,12 @@ class Articles extends Component {
 		// }
   }
 
+  handleChangeMenu() {
+    const { changeMenuVisible } = this.props;
+
+    changeMenuVisible();
+  }
+
   render() {
     const { articles } = this.props;
 
@@ -51,15 +62,33 @@ class Articles extends Component {
       return <div>initializing everything...</div>;
     }
 
+    const clazzIcon = classNames({
+      'material-icons': true,
+      [styles.md42]: true
+    });
+
     return (
-      <div className={styles.articlesContainer} onScroll={(e) => this.handleScroll(e)} >
-        {
-          articles.loading &&
-            <div className={styles.articlesLoading}>loading...</div>
-        }
-        {
-          articles.list.map((article) => <Article key={article.get('url')} {...article.toJS()} />)
-        }
+      <div className={styles.container}>
+        <div className={styles.actionsContainer}>
+          <div className={styles.actionsTitle}>
+            Welcome, see here the latest news
+          </div>
+          <div className={styles.actionsSplit}></div>
+          <div className={styles.actionsMenu}>
+            <Button nostyle onClick={() => this.handleChangeMenu()}>
+              <i className={clazzIcon}>more_horiz</i>
+            </Button>
+          </div>
+        </div>
+        <div className={styles.articlesContainer} onScroll={(e) => this.handleScroll(e)} >
+          {
+            articles.loading &&
+              <div className={styles.articlesLoading}>loading...</div>
+          }
+          {
+            articles.list.map((article) => <Article key={article.get('url')} {...article.toJS()} />)
+          }
+        </div>
       </div>
     );
   }
