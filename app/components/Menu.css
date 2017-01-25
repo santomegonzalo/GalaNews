@@ -9,17 +9,29 @@
   z-index: 9999;
 }
 
+.containerEmpty {
+  flex-grow: 1;
+}
+
 .containerMenu {
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
+  flex-grow: 0;
   width: 300px;
   background-color: rgba(0, 128, 145, 0.9);
 }
 
 .closeAction {
-  height: 120px;
+  height: 126px;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+
+.md42 {
+  color: #FFF;
+  font-size: 42px;
 }
 
 .menuActions {

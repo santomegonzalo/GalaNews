@@ -29,9 +29,13 @@
   font-size: 42px;
 }
 
+.hidden {
+  display: none;
+}
+
 .articlesContainer {
   display: flex;
-  height: calc(100% -  44px);
+  height: calc(100% -  84px);
 	width: 100%;
   flex-direction: row;
 	flex-wrap: wrap;

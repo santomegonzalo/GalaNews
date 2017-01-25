@@ -12,6 +12,7 @@ class Articles extends Component {
     changeMenuVisible: () => void,
     loadArticles: () => void,
     articles: () => void,
+    menuVisible: () => boolean,
   };
 
   constructor() {
@@ -25,13 +26,17 @@ class Articles extends Component {
   componentDidMount() {
     document.getElementById('root').classList.add('with-background');
 
-    const { loadArticles } = this.props;
+    const { loadArticles, changeMenuVisible } = this.props;
 
     window.addEventListener('resize', () => {
       this.resize();
     }, true);
 
     loadArticles(this.state.page);
+
+    if (this.props.menuVisible) {
+      changeMenuVisible();
+    }
   }
 
   handleScroll(e: any) {
@@ -64,7 +69,8 @@ class Articles extends Component {
 
     const clazzIcon = classNames({
       'material-icons': true,
-      [styles.md42]: true
+      [styles.md42]: true,
+      [styles.hidden]: this.props.menuVisible
     });
 
     return (
@@ -76,7 +82,7 @@ class Articles extends Component {
           <div className={styles.actionsSplit}></div>
           <div className={styles.actionsMenu}>
             <Button nostyle onClick={() => this.handleChangeMenu()}>
-              <i className={clazzIcon}>more_horiz</i>
+              <i className={clazzIcon}>more_vert</i>
             </Button>
           </div>
         </div>
@@ -86,7 +92,7 @@ class Articles extends Component {
               <div className={styles.articlesLoading}>loading...</div>
           }
           {
-            articles.list.map((article) => <Article key={article.get('url')} {...article.toJS()} />)
+            articles.list.map((article) => <Article key={article.get('url')} {...article.toJSON()} />)
           }
         </div>
       </div>

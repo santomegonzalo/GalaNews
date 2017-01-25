@@ -5,6 +5,7 @@ let visible = false;
 
 export function changeMenuVisible() {
   visible = !visible;
+
   return {
     type: MENU_VISIBLE,
     payload: {

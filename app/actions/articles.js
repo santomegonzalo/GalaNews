@@ -55,11 +55,22 @@ export function loadArticles(page: number = 1) {
   return (dispatch: Function, getState: Function) => {
     dispatch(loading());
 
+    let sourcesObject = {};
+
     return db.getSources()
       .then((sources) => {
+        // generate the sourcesObject with source data to have a quickly access in every component
+        sources.forEach((source) => {
+          sourcesObject[source.id] = {
+            logoLarge: source.logoLarge,
+            logoMedium: source.logoMedium,
+            logoSmall: source.logoSmall,
+          };
+        });
+
         return Promise.all(
           sources.map(
-            (source) => fetch(`https://newsapi.org/v1/articles?source=${source.id}&sortBy=top&apiKey=${NEWS_KEY}`)
+            (source) => fetch(`https://newsapi.org/v1/articles?source=${source.id}&apiKey=${NEWS_KEY}`)
           )
         );
       })
@@ -71,7 +82,12 @@ export function loadArticles(page: number = 1) {
         );
       })
       .then((listJSON) => {
-        const list = mergeArticles(listJSON.map(list => Immutable.fromJS(list.articles)));
+        const articlesWithSourceId = listJSON.map(list => Immutable.fromJS(list.articles.map(article => {
+          article.source = sourcesObject[list.source];
+          return article;
+        })));
+
+        const list = mergeArticles(articlesWithSourceId);
 
         dispatch(loadded(list));
       })

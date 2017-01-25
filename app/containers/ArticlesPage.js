@@ -6,7 +6,8 @@ import * as MenuActions from '../actions/menu';
 
 function mapStateToProps(state) {
   return {
-    articles: state.articles
+    articles: state.articles,
+    menuVisible: state.menu.visible,
   };
 }
 

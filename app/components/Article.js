@@ -6,13 +6,13 @@ import styles from './Article.css';
 
 class Article extends Component {
   open() {
-    const { author, description, title, url, urlToImage, publishedAt } = this.props;
+    const { url } = this.props;
 
-    shell.openExternal(url)
+    shell.openExternal(url);
   }
 
   render() {
-    const { author, description, title, urlToImage, publishedAt } = this.props;
+    const { author, description, title, urlToImage, publishedAt, source } = this.props;
 
     return (
       <div className={styles.article} onClick={() => this.open()}>
@@ -20,7 +20,13 @@ class Article extends Component {
           <img src={urlToImage} className={styles.image}/>
         </div>
         <div className={styles.infoContainer}>
-          <h3 className={styles.infoTitle}>{title} <span className={styles.infoAgo}>({moment(publishedAt).fromNow()})</span></h3>
+          <div className={styles.imageSourceContainer}>
+            <img src={source.logoSmall} className={styles.imageSource} />
+          </div>
+          <div className={styles.textContaienr}>
+            <h3 className={styles.infoTitle}>{title}</h3>
+            <h4 className={styles.infoAgo}>{moment(publishedAt).fromNow()}</h4>
+          </div>
         </div>
       </div>
     );

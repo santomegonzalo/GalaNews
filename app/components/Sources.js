@@ -13,6 +13,7 @@ class Sources extends Component {
     sources: () => void,
     selectSource: () => void,
     saveSources: () => Promise,
+    menuVisible: () => boolean,
   };
 
   componentDidMount() {
@@ -21,7 +22,10 @@ class Sources extends Component {
     const { loadSources, changeMenuVisible } = this.props;
 
     loadSources();
-    changeMenuVisible();
+
+    if (this.props.menuVisible) {
+      changeMenuVisible();
+    }
   }
 
   handleNext() {

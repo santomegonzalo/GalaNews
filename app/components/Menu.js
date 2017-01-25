@@ -1,12 +1,13 @@
 // @flow
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import { Link } from 'react-router';
 import styles from './Menu.css';
 import Button from './utils/Button';
 
 export default class Menu extends Component {
   props: {
-    visible: () => void,
+    visible: () => boolean,
     changeMenuVisible: () => void,
   };
 
@@ -23,12 +24,19 @@ export default class Menu extends Component {
       return <div></div>;
     }
 
+    const clazzIcon = classNames({
+      'material-icons': true,
+      [styles.md42]: true
+    });
+
     return (
-      <div className={styles.container} onClick={() => this.handleClose()}>
+      <div className={styles.container}>
+        <div className={styles.containerEmpty} onClick={() => this.handleClose()}>
+        </div>
         <div className={styles.containerMenu}>
           <div className={styles.closeAction}>
             <Button nostyle onClick={() => this.handleClose()}>
-              <i className="material-icons">clear</i>
+              <i className={clazzIcon}>clear</i>
             </Button>
           </div>
           <div className={styles.menuActions}>
