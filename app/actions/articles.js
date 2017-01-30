@@ -86,10 +86,22 @@ export function loadArticles(page: number = 1) {
           article.source = sourcesObject[list.source];
           return article;
         })));
+debugger;
+        // I dont need this anymore because I will use a sort from DB
+        // const list = mergeArticles(articlesWithSourceId);
+        let mergedList = new List();
+        listJSON.map(list => list.articles).forEach((list) => {
+          mergedList = mergedList.concat(list);
+        });
 
-        const list = mergeArticles(articlesWithSourceId);
+        // saving into the DB
+        return db.saveArticles(mergedList);
+      })
+      .then((something) => db.getArticles())
+      .then((list) => {
+        dispatch(loadded(Immutable.fromJS(list)));
 
-        dispatch(loadded(list));
+        return null;
       })
       .catch((err) => dispatch(error(err)));
   };

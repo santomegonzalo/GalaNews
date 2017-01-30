@@ -13,7 +13,7 @@ class Article extends Component {
   }
 
   render() {
-    const { author, description, title, urlToImage, publishedAt, source } = this.props;
+    const { author, description, title, urlToImage, publishedAt, sourceLogoSmall } = this.props;
 
     return (
       <div className={styles.article} onClick={() => this.open()}>
@@ -23,7 +23,7 @@ class Article extends Component {
         </div>
         <div className={styles.infoContainer}>
           <div className={styles.imageSourceContainer}>
-            <img src={source.logoSmall} className={styles.imageSource} />
+            <img src={sourceLogoSmall} className={styles.imageSource} />
           </div>
           <div className={styles.textContaienr}>
             <h3 className={styles.infoTitle}>{title}</h3>

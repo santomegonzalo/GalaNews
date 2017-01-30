@@ -4,10 +4,10 @@ let db;
 
 class DB {
   constructor() {
-    db = new Dexie('galanews');
+    db = new Dexie('galanews_4');
     db.version(1).stores({
       sources: 'id, name, category, language, logoSmall, logoMedium, logoLarge',
-      articles: 'id, author, description, title, url, urlToImage, publishedAt, read, later, sourceLogoLarge, sourceLogoMedium, sourceLogoSmall'
+      articles: '++id, author, description, title, &url, urlToImage, publishedAt, read, later, sourceLogoLarge, sourceLogoMedium, sourceLogoSmall'
     });
     db.open().catch((e) => {
       console.error(e);
@@ -18,33 +18,38 @@ class DB {
     return db.sources.toArray();
   }
 
+  getArticles() {
+    return db.articles.toArray();
+  }
+
   cleanSources() {
-    return db.sources.clear()
+    return db.sources.orderBy('publishedAt').clear()
   }
 
   saveArticles(list) {
-    return db.transaction('rw', db.articles, () => {
-      const bulk = list.toJSON().map((article) => {
-        return {
-          id: article.id,
-          author: article.author,
-          description: article.description,
-          title: article.title,
-          url: article.url,
-          urlToImage: article.urlToImage,
-          publishedAt: article.publishedAt,
-          read: false,
-          sourceLogoLarge: article.source.logoLarge,
-          sourceLogoMedium: article.source.logoMedium,
-          sourceLogoSmall: article.source.logoSmall,
-        };
-      });
-
-      return db.articles.bulkAdd(bulk);
-    })
-    .catch((error) => {
-      console.error(error);
+    // I'm not using a transaction because if I'm trying to add duplicate I just ignore it
+    const bulk = list.toJSON().map((article) => {
+      return {
+        author: article.author,
+        description: article.description,
+        title: article.title,
+        url: article.url,
+        urlToImage: article.urlToImage,
+        publishedAt: article.publishedAt,
+        read: false,
+        later: false,
+        sourceLogoLarge: article.source.logoLarge,
+        sourceLogoMedium: article.source.logoMedium,
+        sourceLogoSmall: article.source.logoSmall,
+      };
     });
+
+    return db.articles.bulkAdd(bulk)
+      .catch((err) => {
+        console.log('Yes there is some errors but I dont care');
+
+        return null;
+      });
   }
 
   setArticle(id, options) {
