@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { shell } from 'electron';
 import styles from './Article.css';
+import Bookmark from './utils/Bookmark';
 
 class Article extends Component {
   open() {
@@ -16,6 +17,7 @@ class Article extends Component {
 
     return (
       <div className={styles.article} onClick={() => this.open()}>
+        {/* <Bookmark /> */}
         <div className={styles.imageContainer}>
           <img src={urlToImage} className={styles.image}/>
         </div>

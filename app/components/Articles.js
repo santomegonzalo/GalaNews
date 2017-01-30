@@ -15,24 +15,12 @@ class Articles extends Component {
     menuVisible: () => boolean,
   };
 
-  constructor() {
-    super();
-
-    this.state = {
-      page: 1,
-    };
-  }
-
   componentDidMount() {
     document.getElementById('root').classList.add('with-background');
 
     const { loadArticles, changeMenuVisible } = this.props;
 
-    window.addEventListener('resize', () => {
-      this.resize();
-    }, true);
-
-    loadArticles(this.state.page);
+    loadArticles();
 
     if (this.props.menuVisible) {
       changeMenuVisible();
@@ -92,7 +80,7 @@ class Articles extends Component {
               <div className={styles.articlesLoading}>loading...</div>
           }
           {
-            articles.list.map((article) => <Article key={article.get('url')} {...article.toJSON()} />)
+            articles.list.map((article) => <Article key={article.get('url') + article.get('createdAt')} {...article.toJSON()} />)
           }
         </div>
       </div>

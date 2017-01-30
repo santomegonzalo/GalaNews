@@ -48,13 +48,6 @@ class Sources extends Component {
 
     return (
       <div className={styles.sources}>
-        <div className={styles.sourcesActions}>
-          <Button
-            disabled={countSelected === 0}
-            text="Next"
-            onClick={() => this.handleNext()}
-          />
-        </div>
         <div className={styles.sourcesContainer}>
           {
             sources.loading &&
@@ -63,6 +56,22 @@ class Sources extends Component {
           {
             sources.list.map((source) => <Source key={source.get('url')} {...source.toJSON()} selectSource={selectSource}/>)
           }
+        </div>
+        <div className={styles.sourcesActions}>
+          <div className={styles.sourcesSelectedCount}>
+            {
+              countSelected > 0 &&
+                <span>You have selected {countSelected} sources...</span>
+            }
+          </div>
+          <div className={styles.sourcesEmpty}></div>
+          <div className={styles.sourcesAction}>
+            <Button
+              disabled={countSelected === 0}
+              text="Done!"
+              onClick={() => this.handleNext()}
+            />
+          </div>
         </div>
       </div>
     );

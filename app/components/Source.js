@@ -25,9 +25,11 @@ class Source extends Component {
 
     return (
       <div className={clazz} onClick={() => this.handleSelect()}>
-        <div className={styles.imageContainer} style={{
-          backgroundImage: `url('${urlsToLogos.medium}')`
-        }}>
+        <div className={styles.imageContainer}>
+          <div className={styles.image} style={{
+            backgroundImage: `url('${urlsToLogos.medium}')`
+          }}>
+          </div>
         </div>
         <div className={styles.infoContainer}>
           <h3 className={styles.infoTitle}>{name}</h3>

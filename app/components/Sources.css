@@ -1,21 +1,22 @@
 .sources {
-  height: calc(100% -  44px);
 	width: 100%;
-  overflow: hidden;
-  overflow-y: auto;
+  height: 100%;
 }
 
 .sourcesContainer {
   display: flex;
   width: 100%;
   flex-direction: row;
-	flex-wrap: wrap;
+  flex-wrap: wrap;
+  height: calc(100% - 110px);
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .sourcesActions {
   display: flex;
-  justify-content: flex-end;
   padding: 10px;
+  align-items: center;
 }
 
 .sourcesLoading {
@@ -27,4 +28,18 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   color: #000;
+}
+
+.sourcesSelectedCount {
+  flex-grow: 0;
+  font-size: 17px;
+  color: #667e89;
+}
+
+.sourcesEmpty {
+  flex-grow: 1;
+}
+
+.sourcesAction {
+  flex-grow: 0;
 }
