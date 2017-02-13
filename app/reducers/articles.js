@@ -6,7 +6,7 @@ import {
   ARTICLE_ERROR,
 } from '../actions/articles';
 
-export default function counter(state: Object = { init: true }, action: Object) {
+export default function articles(state: Object = { init: true }, action: Object) {
   switch (action.type) {
     case ARTICLE_LOADING:
       return {

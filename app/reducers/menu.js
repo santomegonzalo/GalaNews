@@ -4,7 +4,7 @@ import {
   MENU_VISIBLE,
 } from '../actions/menu';
 
-export default function counter(state: Object = { visible: false }, action: Object) {
+export default function menu(state: Object = { visible: false }, action: Object) {
   switch (action.type) {
     case MENU_VISIBLE:
       return {
