@@ -3,13 +3,12 @@
  */
 
 import path from 'path';
-import validate from 'webpack-validator';
 
-export default validate({
+export default {
   module: {
-    loaders: [{
+    rules: [{
       test: /\.jsx?$/,
-      loaders: ['babel-loader'],
+      loader: 'babel-loader',
       exclude: /node_modules/,
     }, {
       test: /\.json$/,
@@ -32,8 +31,8 @@ export default validate({
   resolve: {
     enforceExtension: false,
     extensions: ['.js', '.jsx', '.json'],
-    packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
+    mainFields: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
 
   plugins: []
-});
+};

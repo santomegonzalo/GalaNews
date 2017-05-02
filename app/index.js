@@ -3,6 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, hashHistory } from 'react-router';
+import { createBrowserHistory } from 'history';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { RouterDefinition } from './routes';
 import configureStore from './store/configureStore';
@@ -11,7 +12,7 @@ import db from './db';
 const Routes = new RouterDefinition();
 
 const store = configureStore();
-const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(createBrowserHistory(), store);
 
 db.getSources().then((sources) => {
   const haveSources = sources.length > 0;
