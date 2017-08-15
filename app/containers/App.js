@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { ipcRenderer } from 'electron';
-import { Titlebar } from 'react-titlebar-osx';
-import MenuPage from './MenuPage';
+// import { Titlebar } from 'react-titlebar-osx';
+// import MenuPage from './MenuPage';
 
 export default class App extends Component {
   props: {
@@ -26,9 +26,13 @@ export default class App extends Component {
   }
 
   render() {
+    console.log('***********');
+    console.log(Titlebar);
+    console.log(MenuPage);
+    console.log('***********');
     return (
       <div className="app-container">
-        <Titlebar
+        {/* <Titlebar
           transparent
           draggable
           padding={10}
@@ -37,7 +41,7 @@ export default class App extends Component {
           onMaximize={() => this.handleMaximize()}
           onFullscreen={() => this.handleFullscreen()}
         />
-        <MenuPage />
+        <MenuPage /> */}
         {this.props.children}
       </div>
     );
